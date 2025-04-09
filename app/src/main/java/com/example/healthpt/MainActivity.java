@@ -2,49 +2,111 @@ package com.example.healthpt;
 
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.healthpt.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    // 현재 헬스장 인원 표시
+    private TextView peopleCountText;
+    private ImageView gymcomplexImageView;
+    // 실시간 인원 현황(데이터 연동 필요)
+    private int currentCount = 70;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+
+        peopleCountText = findViewById(R.id.peopleCountText);
+        gymcomplexImageView = findViewById(R.id.gymcomplexView);
+
+        setPeopleCount(currentCount);
+        updateUIWithCount(currentCount);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
-            }
-        });
     }
+
+    //현재 인원 설정
+    private void setPeopleCount(int count) {
+        currentCount = count;
+        peopleCountText.setText(currentCount + "/150명");
+    }
+
+    private void updateUIWithCount(int count) {
+
+        if (count <= 33) {
+            gymcomplexImageView.setImageResource(R.drawable.free);
+        } else if (count <= 66) {
+            gymcomplexImageView.setImageResource(R.drawable.common);
+        } else if (count <= 100) {
+            gymcomplexImageView.setImageResource(R.drawable.complex);
+        }
+    }
+
+    BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+
+    /*
+    void loadFragment(HomeFragment());
+
+
+    bottomNav.setOnItemSelectedListener(item -> {
+        Fragment selectedFragment = null;
+
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                selectedFragment = new HomeFragment();
+                // 홈 화면 이동
+                break;
+            case R.id.nav_work:
+                selectedFragment = new WorkFragment();
+                // 운동 화면 이동
+                break;
+            case R.id.nav_calendar:
+                selectedFragment = new CalendarFragment();
+                // 캘린더 이동
+                break;
+            case R.id.nav_community:
+                selectedFragment = new CommunityFragment();
+                // 커뮤니티 이동
+                break;
+        }
+        if (selectedFragment != null) {
+            loadFragment(selectedFragment);
+            return true;
+        }
+
+        return false;
+    });
+
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
+
+     */
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,10 +130,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
+
 }
