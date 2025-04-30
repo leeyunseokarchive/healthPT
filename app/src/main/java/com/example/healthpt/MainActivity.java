@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.healthpt.databinding.ActivityMainBinding;
@@ -35,15 +36,44 @@ public class MainActivity extends AppCompatActivity {
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+
         peopleCountText = findViewById(R.id.peopleCountText);
         gymcomplexImageView = findViewById(R.id.gymcomplexView);
 
         setPeopleCount(currentCount);
         updateUIWithCount(currentCount);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        //binding = ActivityMainBinding.inflate(getLayoutInflater());
+        //setContentView(binding.getRoot());
 
+        if (savedInstanceState == null) {
+            loadFragment(new HomeFragment()); // 또는 CalendarFragment()
+        }
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+
+            if (item.getItemId() == R.id.nav_calendar) {
+                selectedFragment = new CalendarFragment();
+            } else if (item.getItemId() == R.id.nav_home) {
+                selectedFragment = new HomeFragment();
+            }
+
+            if (selectedFragment != null) {
+                loadFragment(selectedFragment);
+                return true;
+            }
+            return false;
+        });
+
+    }
+
+    // 화면 전환
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 
     //현재 인원 설정
