@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         peopleCountText = findViewById(R.id.peopleCountText);
         gymcomplexImageView = findViewById(R.id.gymcomplexView);
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+
 
     /*
     void loadFragment(HomeFragment());
