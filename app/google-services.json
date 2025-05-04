@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "304294392074",
+    "project_id": "healthpt",
+    "storage_bucket": "healthpt.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304294392074:android:ec6a3b1fba637bb62b4af3",
+        "android_client_info": {
+          "package_name": "com.example.healthpt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4W0rbUouW4a8wYNIxQj90x-4dQ5JY9SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
