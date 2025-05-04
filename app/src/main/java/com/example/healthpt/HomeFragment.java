@@ -70,7 +70,6 @@ public class HomeFragment extends Fragment {
     private void updateUIWithCount(int count) {//퍼센트 단위로 바꿔놨습니다 by 장윤상
 
         if ((float) count / totalCapacity <= 0.3) {
-            gymcomplexImageView.setImageResource(R.drawable.free);
         } else if ((float)count / totalCapacity <= 0.6) {
             gymcomplexImageView.setImageResource(R.drawable.common);
         } else {
