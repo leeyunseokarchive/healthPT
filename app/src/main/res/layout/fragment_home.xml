@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="홈 화면입니다!"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="150dp"/>
+    <!-- 첫 번째 TextView -->
 
-
+    <!-- 두 번째 TextView -->
     <TextView
         android:id="@+id/peopleCountText"
         android:layout_width="wrap_content"
@@ -25,6 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="100dp"
         android:layout_marginStart="122dp" />
+
+    <!-- 세 번째 TextView -->
     <TextView
         android:id="@+id/gymText"
         android:layout_width="wrap_content"
@@ -37,6 +33,7 @@
         android:layout_marginTop="100dp"
         android:layout_margin="70dp" />
 
+    <!-- 이미지뷰 -->
     <ImageView
         android:id="@+id/gymcomplexView"
         android:layout_width="100dp"
@@ -49,28 +46,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <!-- FrameLayout을 CoordinatorLayout 대신 직접 배치 -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="50dp"/>
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="56dp" />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:menu="@menu/bottom_nav_menu"
-            app:labelVisibilityMode="labeled"
-            android:background="#FFFFFF" />
-
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+    <ImageView
+        android:id="@+id/QRCodeImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.751"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
