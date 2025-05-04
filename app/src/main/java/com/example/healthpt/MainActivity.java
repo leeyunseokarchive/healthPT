@@ -17,16 +17,16 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+//TODO 25/05/04 장윤상
+//1. 날려먹은거 복구하기 (난 너를 저주한다 맥북)
+//2. 깃에 수정된거 푸쉬 및 커밋하기
+//3. 홈화면 최대한 많이 구현해놓기
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-
-    // 현재 헬스장 인원 표시
-    private TextView peopleCountText;
-    private ImageView gymcomplexImageView;
-    // 실시간 인원 현황(데이터 연동 필요)
-    private int currentCount = 70;
 
 
     @Override
@@ -36,12 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-
-        peopleCountText = findViewById(R.id.peopleCountText);
-        gymcomplexImageView = findViewById(R.id.gymcomplexView);
-
-        setPeopleCount(currentCount);
-        updateUIWithCount(currentCount);
 
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         //setContentView(binding.getRoot());
@@ -55,8 +49,16 @@ public class MainActivity extends AppCompatActivity {
 
             if (item.getItemId() == R.id.nav_calendar) {
                 selectedFragment = new CalendarFragment();
-            } else if (item.getItemId() == R.id.nav_home) {
+            }
+            else if (item.getItemId() == R.id.nav_home) {
                 selectedFragment = new HomeFragment();
+            }
+            else if (item.getItemId() == R.id.nav_work){
+                selectedFragment = new WorkFragment();
+            }
+
+            else if(item.getItemId() == R.id.nav_community){
+                selectedFragment = new CommunityFragment();
             }
 
             if (selectedFragment != null) {
@@ -77,21 +79,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //현재 인원 설정
-    private void setPeopleCount(int count) {
-        currentCount = count;
-        peopleCountText.setText(currentCount + "/150명");
-    }
-
-    private void updateUIWithCount(int count) {
-
-        if (count <= 33) {
-            gymcomplexImageView.setImageResource(R.drawable.free);
-        } else if (count <= 66) {
-            gymcomplexImageView.setImageResource(R.drawable.common);
-        } else if (count <= 100) {
-            gymcomplexImageView.setImageResource(R.drawable.complex);
-        }
-    }
 
 
 
