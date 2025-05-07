@@ -1,52 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- 첫 번째 TextView -->
 
-    <!-- 두 번째 TextView -->
-    <TextView
-        android:id="@+id/peopleCountText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0/100명"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+    <!-- 혼잡도 동그라미 -->
+    <ImageView
+        android:id="@+id/gymcomplexView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginRight="36dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/free"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="122dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 세 번째 TextView -->
+    <!-- 핼스장 이름 -->
     <TextView
         android:id="@+id/gymText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
         android:text="기프랩 유성점"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="100dp"
-        android:layout_margin="70dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/gymcomplexView"
+        app:layout_constraintEnd_toStartOf="@+id/gymcomplexView"
+        app:layout_constraintTop_toTopOf="@+id/gymcomplexView"
+        app:layout_constraintVertical_bias="0.223" />
 
-    <!-- 이미지뷰 -->
-    <ImageView
-        android:id="@+id/gymcomplexView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="220dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/free"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    <!-- 총 인원 수 -->
+    <TextView
+        android:id="@+id/totalCapacityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:text="/100명"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/gymcomplexView"
+        app:layout_constraintEnd_toStartOf="@+id/gymcomplexView"
+        app:layout_constraintTop_toTopOf="@+id/gymcomplexView"
+        app:layout_constraintVertical_bias="0.788" />
 
-    <!-- FrameLayout을 CoordinatorLayout 대신 직접 배치 -->
+    <!-- 현재 인원 수 -->
+    <TextView
+        android:id="@+id/peopleCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="100명"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/gymcomplexView"
+        app:layout_constraintEnd_toStartOf="@+id/totalCapacityText"
+        app:layout_constraintTop_toTopOf="@+id/gymcomplexView"
+        app:layout_constraintVertical_bias="0.82" />
+
+    <!-- 툴바 여백 -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
@@ -54,6 +69,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="50dp"/>
 
+    <!-- QR 코드 -->
     <ImageView
         android:id="@+id/QRCodeImage"
         android:layout_width="150dp"

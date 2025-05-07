@@ -33,6 +33,7 @@ import com.google.zxing.WriterException;
 public class HomeFragment extends Fragment {
 
     private TextView peopleCountText;
+    private TextView totalCapacityText;
     private ImageView gymcomplexImageView;
 
     private ImageView QRCodeImage;//홈 화면에 나올 QR코드 이미지
@@ -50,7 +51,7 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
+        totalCapacityText = view.findViewById(R.id.totalCapacityText);
         peopleCountText = view.findViewById(R.id.peopleCountText);
         gymcomplexImageView = view.findViewById(R.id.gymcomplexView);
         QRCodeImage = view.findViewById(R.id.QRCodeImage);
@@ -64,7 +65,8 @@ public class HomeFragment extends Fragment {
 
     private void setPeopleCount(int count) {
         currentCount = count;
-        peopleCountText.setText(currentCount + "/150명");
+        totalCapacityText.setText(String.format("/%d명", totalCapacity));
+        peopleCountText.setText(String.valueOf(currentCount));
     }
 
     private void updateUIWithCount(int count) {//퍼센트 단위로 바꿔놨습니다 by 장윤상
