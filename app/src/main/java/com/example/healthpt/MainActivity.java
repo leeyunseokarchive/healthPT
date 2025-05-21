@@ -18,10 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-//TODO 25/05/04 장윤상
-//1. 날려먹은거 복구하기 (난 너를 저주한다 맥북)
-//2. 깃에 수정된거 푸쉬 및 커밋하기
-//3. 홈화면 최대한 많이 구현해놓기
+//TODO 25/05/18 장윤상
+//1. 마감기한: 25/05/26
+//2. 로그인/회원가입 구현 -> 파이어 베이스 연동 해서 출석 체크 기록도 저장하기
+//3. 출석 체크 구현, 제가 해버리고야 말았습니다. ㅅ123456789발 여러분들
+//4. QR 코드 지운거 복구
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-
-        //binding = ActivityMainBinding.inflate(getLayoutInflater());
-        //setContentView(binding.getRoot());
 
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment()); // 또는 CalendarFragment()
@@ -78,52 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    //현재 인원 설정
-
-
-
-    /*
-    void loadFragment(HomeFragment());
-
-
-    bottomNav.setOnItemSelectedListener(item -> {
-        Fragment selectedFragment = null;
-
-        switch (item.getItemId()) {
-            case R.id.nav_home:
-                selectedFragment = new HomeFragment();
-                // 홈 화면 이동
-                break;
-            case R.id.nav_work:
-                selectedFragment = new WorkFragment();
-                // 운동 화면 이동
-                break;
-            case R.id.nav_calendar:
-                selectedFragment = new CalendarFragment();
-                // 캘린더 이동
-                break;
-            case R.id.nav_community:
-                selectedFragment = new CommunityFragment();
-                // 커뮤니티 이동
-                break;
-        }
-        if (selectedFragment != null) {
-            loadFragment(selectedFragment);
-            return true;
-        }
-
-        return false;
-    });
-
-    private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
-    }
-
-
-     */
 
 
     @Override
