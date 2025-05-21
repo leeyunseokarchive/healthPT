@@ -26,17 +26,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.journeyapps.barcodescanner.BarcodeEncoder;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
 
 public class HomeFragment extends Fragment {
+
+
 
     private TextView peopleCountText;
     private TextView totalCapacityText;
     private ImageView gymcomplexImageView;
 
     private ImageView QRCodeImage;//홈 화면에 나올 QR코드 이미지
+
+    private TextView attendance;
     // 실시간 인원 현황(데이터 연동 필요)
     private int currentCount = 70;
 
@@ -48,18 +49,17 @@ public class HomeFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         totalCapacityText = view.findViewById(R.id.totalCapacityText);
         peopleCountText = view.findViewById(R.id.peopleCountText);
         gymcomplexImageView = view.findViewById(R.id.gymcomplexView);
         QRCodeImage = view.findViewById(R.id.QRCodeImage);
+        attendance = view.findViewById(R.id.attendance);
+
 
         setPeopleCount(currentCount);
         updateUIWithCount(currentCount);
-        generateQRCode("userID");
-
         return view;
     }
 
@@ -72,23 +72,12 @@ public class HomeFragment extends Fragment {
     private void updateUIWithCount(int count) {//퍼센트 단위로 바꿔놨습니다 by 장윤상
 
         if ((float) count / totalCapacity <= 0.3) {
+            gymcomplexImageView.setImageResource(R.drawable.free);
         } else if ((float)count / totalCapacity <= 0.6) {
             gymcomplexImageView.setImageResource(R.drawable.common);
         } else {
             gymcomplexImageView.setImageResource(R.drawable.complex);
         }
-    }
-
-    private void generateQRCode(String data) {//QR 코드 생성함수, QR 코드 크기 조정하려면 try문 두번째 줄에 뒤 쪽 숫자 바꿔주시고 xml파일도 따로 수정해야됩니다
-        try {
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap bitmap = barcodeEncoder.encodeBitmap(data, BarcodeFormat.QR_CODE, 150, 150);
-            QRCodeImage.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
 }

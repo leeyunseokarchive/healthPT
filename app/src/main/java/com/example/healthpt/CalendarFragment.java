@@ -1,48 +1,35 @@
 package com.example.healthpt;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.healthpt.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.HashSet;
+import java.util.Set;
+
+
 
 public class CalendarFragment extends Fragment {
+    private MaterialCalendarView calendarView;//달력 뷰
+    private Button checkInButton;//출석 체크 버튼
 
-    private CalendarView calendarView;
-    private TextView routineText;
-    private Button checkInButton;
-
-    //private AppDatabase db;
-    private String selectedDate;
-
-    public CalendarFragment() { }
+    // 출석 날짜 저장용
+    private Set<CalendarDay> attendanceDays = new HashSet<>();
 
     @Nullable
     @Override
@@ -50,71 +37,63 @@ public class CalendarFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        // fragment_calendar.xml 레이아웃을 inflate
+        return inflater.inflate(R.layout.fragment_calendar, container, false);
+    }
 
-        calendarView = view.findViewById(R.id.calendarView);
-        routineText = view.findViewById(R.id.routineText);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        calendarView = view.findViewById(R.id.calendarview);
         checkInButton = view.findViewById(R.id.checkInButton);
 
-       // db = Room.databaseBuilder(requireContext(),
-                //AppDatabase.class, "routine-db").allowMainThreadQueries().build();
+        // 테스트용 출석 날짜
+        attendanceDays.add(CalendarDay.from(2025, 5, 15));
+        attendanceDays.add(CalendarDay.from(2025, 5, 16));
+        attendanceDays.add(CalendarDay.from(2025, 5, 18));
 
-        selectedDate = getTodayDate();
-        //loadRoutine(selectedDate);
+        calendarView.addDecorator(new AttendanceDecorator(attendanceDays));
 
-        calendarView.setOnDateChangeListener((v, year, month, dayOfMonth) -> {
-            selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
-            //loadRoutine(selectedDate);
+        //출석 체크는 아직 서버 연동 못해놔서 하는대로 올리겠슴미다 by 장윤상
+        checkInButton.setOnClickListener(view1 -> {//출석 체크 버튼 누를 경우
+            Calendar calendar = Calendar.getInstance();
+            CalendarDay today = CalendarDay.from(//오늘 날짜 확인
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH) + 1, // 0-based라 +1
+                    calendar.get(Calendar.DAY_OF_MONTH)
+            );
+
+            // 출석일 추가
+            attendanceDays.add(today);
+
+            // 데코레이터 갱신
+            calendarView.invalidateDecorators();
         });
-
-        checkInButton.setOnClickListener(v -> {
-            RoutineEntry entry = new RoutineEntry(selectedDate, true, getRoutineForDate(selectedDate));
-           // db.routineDao().insert(entry);
-            Toast.makeText(requireContext(), "출석 완료!", Toast.LENGTH_SHORT).show();
-            //loadRoutine(selectedDate);
-        });
-
-
-        return  view;
     }
 
-    /*
-    private void loadRoutine(String date) {
-        RoutineEntry entry = db.routineDao().getByDate(date);
-        if (entry != null) {
-            routineText.setText("루틴: " + entry.routine + "\n출석: " + (entry.isCheckedIn ? "✅" : "❌"));
-        } else {
-            routineText.setText("루틴: " + getRoutineForDate(date) + "\n출석: X");
+    // 출석 데코레이터
+    private class AttendanceDecorator implements DayViewDecorator {
+
+        private final Set<CalendarDay> dates;
+        private final Drawable highlightDrawable;
+
+        public AttendanceDecorator(Set<CalendarDay> dates) {
+            this.dates = dates;
+            // 동그란 배경 drawable, res -> drawble 파일에 있으니 맘에 안들면 바꾸쇼 by 장윤상
+            highlightDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.circle_background);
+        }
+
+        @Override
+        public boolean shouldDecorate(@NonNull CalendarDay day) {
+            return dates.contains(day);
+        }
+
+        @Override
+        public void decorate(@NonNull DayViewFacade view) {
+            view.setBackgroundDrawable(highlightDrawable);
         }
     }
-
-     */
-
-    private String getRoutineForDate(String date) {
-        try {
-            Date d = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
-            Calendar c = Calendar.getInstance();
-            c.setTime(d);
-            int day = c.get(Calendar.DAY_OF_WEEK);
-
-            switch (day) {
-                case Calendar.MONDAY: return "가슴 운동";
-                case Calendar.TUESDAY: return "등 운동";
-                case Calendar.WEDNESDAY: return "하체 운동";
-                case Calendar.THURSDAY: return "어깨 운동";
-                case Calendar.FRIDAY: return "팔 운동";
-                case Calendar.SATURDAY: return "유산소";
-                default: return "휴식";
-            }
-        } catch (Exception e) {
-            return "루틴 없음";
-        }
-    }
-
-    private String getTodayDate() {
-        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-    }
-
 
 
 }

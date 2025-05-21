@@ -7,9 +7,11 @@ android {
     namespace = "com.example.healthpt"
     compileSdk = 35
 
+
+
     defaultConfig {
         applicationId = "com.example.healthpt"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -46,10 +48,15 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("androidx.core:core:1.13.0")
+
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.core:core-ktx:1.9.0")
+
+    implementation("com.github.prolificinteractive:material-calendarview:2.0.1")
 
 }
