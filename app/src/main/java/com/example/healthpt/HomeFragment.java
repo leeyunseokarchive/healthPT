@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -41,6 +43,7 @@ public class HomeFragment extends Fragment {
     private TextView totalCapacityText;
     private ImageView gymcomplexImageView;
     private Button NFC;
+    private Button beaconFinder;
 
     private ImageView QRCodeImage;//홈 화면에 나올 QR코드 이미지
 
@@ -52,6 +55,8 @@ public class HomeFragment extends Fragment {
 
     private RelativeLayout qrCodeLayout;
     private GestureDetector gestureDetector;
+
+    private int attendanceDays = 0;
 
 
     @Nullable
@@ -68,16 +73,20 @@ public class HomeFragment extends Fragment {
         attendance = view.findViewById(R.id.attendance);
         NFC = view.findViewById(R.id.NFC);
         qrCodeLayout = view.findViewById(R.id.qrCodeLayout);
+        beaconFinder = view.findViewById(R.id.beaconFinder);
+
+
+        manageAttendance manageAttendance;
 
 
         setPeopleCount(currentCount);
         updateUIWithCount(currentCount);
 
-        ImageView qrCodeImageView = view.findViewById(R.id.qrCodeImageView);//QR 코드 생성
+        /*ImageView qrCodeImageView = view.findViewById(R.id.qrCodeImageView);//QR 코드 생성
         Bitmap qrBitmap = generateQRCode("Testing", 400);
         if (qrBitmap != null) {
             qrCodeImageView.setImageBitmap(qrBitmap);
-        }
+        }*/
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();//파이어베이스 객체
 
@@ -100,9 +109,21 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
+        beaconFinder.setOnClickListener(v->{
+            Toast.makeText(requireContext(), "비콘 찾는중", Toast.LENGTH_SHORT);
+
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                // 여기에 비콘 발견 시 동작 넣기
+                Toast.makeText(requireContext(), "✅ 비콘 발견!", Toast.LENGTH_SHORT).show();
+
+                // 예: 출석 체크 처리
+                // 직접 만든 함수로 Firestore 저장 등
+            }, 2000); // 2초 지연
+        });
 
 
-        gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {//슬라이드 확인자
+
+        /*gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {//슬라이드 확인자
             private static final int SWIPE_THRESHOLD = 100;
             private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
@@ -125,10 +146,15 @@ public class HomeFragment extends Fragment {
                 return false;
             }
 
-        });
-
-
+        });*/
         view.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
+
+        manageAttendance manager = new manageAttendance(requireContext());
+        manager.getTotalAttendanceCount(count -> {
+            // count는 출석한 일 수
+            //Log.d("출석 일수", count + "일 출석했습니다.");
+            attendance.setText("연속 출석 일자: " + count + "일");
+        });
 
         return view;
     }
@@ -150,7 +176,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public Bitmap generateQRCode(String text, int size) {//QR코드 생성 함수
+    /*public Bitmap generateQRCode(String text, int size) {//QR코드 생성 함수
         try {
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
             BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, size, size);
@@ -185,6 +211,6 @@ public class HomeFragment extends Fragment {
                     .withEndAction(() -> qrCodeLayout.setVisibility(View.GONE))
                     .start();
         }
-    }
+    }*/
 }
 

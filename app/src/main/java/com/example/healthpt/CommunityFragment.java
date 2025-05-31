@@ -51,6 +51,9 @@ public class CommunityFragment extends Fragment {
             Toast.makeText(getContext(), isChecked ? "메이트 기능이 활성화 됐습니다!" : "메이트 기능이 비활성화 됐습니다..", Toast.LENGTH_LONG).show();
         });
         return view;
+
+
+
     }
 }
 

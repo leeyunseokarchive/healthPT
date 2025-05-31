@@ -76,22 +76,27 @@
         android:id="@+id/attendance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="404dp"
         android:text="연속 출석 일자"
         app:layout_constraintBottom_toTopOf="@+id/fragment_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/NFC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#A4C3EA"
         android:text="NFC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.704" />
+        app:layout_constraintVertical_bias="0.614" />
 
     <RelativeLayout
         android:id="@+id/qrCodeLayout"
@@ -110,6 +115,18 @@
             android:layout_centerInParent="true"
             />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/beaconFinder"
+        android:layout_width="113dp"
+        android:layout_height="53dp"
+        android:backgroundTint="#A4C3EA"
+        android:text="비콘 찾기"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.876" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

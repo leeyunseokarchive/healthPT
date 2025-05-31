@@ -41,7 +41,7 @@ public class ExerciseTimerActivity extends AppCompatActivity implements SensorEv
         }
     };
 
-    private static final long UI_HIDE_DELAY = 3000; // 3초 후 UI 숨김, 이건 좀 수정할 필요 있을듯 by 장윤상
+    private static final long UI_HIDE_DELAY = 10000; // 3초 후 UI 숨김, 이건 좀 수정할 필요 있을듯 by 장윤상
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

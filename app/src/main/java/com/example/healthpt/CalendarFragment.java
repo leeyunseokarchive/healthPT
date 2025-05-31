@@ -18,8 +18,11 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 
@@ -30,6 +33,7 @@ public class CalendarFragment extends Fragment {
 
     // 출석 날짜 저장용
     private Set<CalendarDay> attendanceDays = new HashSet<>();
+    private manageAttendance attendanceManager;
 
     @Nullable
     @Override
@@ -48,12 +52,32 @@ public class CalendarFragment extends Fragment {
         calendarView = view.findViewById(R.id.calendarview);
         checkInButton = view.findViewById(R.id.checkInButton);
 
+        attendanceManager = new manageAttendance(requireContext());
         // 테스트용 출석 날짜
-        attendanceDays.add(CalendarDay.from(2025, 5, 15));
-        attendanceDays.add(CalendarDay.from(2025, 5, 16));
-        attendanceDays.add(CalendarDay.from(2025, 5, 18));
 
         calendarView.addDecorator(new AttendanceDecorator(attendanceDays));
+
+
+        // 출석 날짜 불러오기
+        attendanceManager.loadAttendance(dateStrings -> {
+            for (String date : dateStrings) {
+                try {
+                    Date parsed = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(parsed);
+                    CalendarDay calendarDay = CalendarDay.from(
+                            calendar.get(Calendar.YEAR),
+                            calendar.get(Calendar.MONTH) + 1,
+                            calendar.get(Calendar.DAY_OF_MONTH)
+                    );
+                    attendanceDays.add(calendarDay);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            calendarView.addDecorator(new AttendanceDecorator(attendanceDays));
+        });
 
         //출석 체크는 아직 서버 연동 못해놔서 하는대로 올리겠슴미다 by 장윤상
         checkInButton.setOnClickListener(view1 -> {//출석 체크 버튼 누를 경우
@@ -65,6 +89,7 @@ public class CalendarFragment extends Fragment {
             );
 
             // 출석일 추가
+            attendanceManager.markTodayAttendance();
             attendanceDays.add(today);
 
             // 데코레이터 갱신
