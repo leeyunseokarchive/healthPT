@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
-    <solid android:color="#5AC8FA" />  <!-- 색상, 애플블루 바꾸고 싶으면 바꾸셈 by 장윤상 -->
+    <solid android:color="#A4C3EA" />  <!-- 색상, 애플블루 바꾸고 싶으면 바꾸셈 by 장윤상 -->
     <size android:width="30dp" android:height="30dp"/>
 </shape>

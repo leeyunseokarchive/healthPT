@@ -23,6 +23,7 @@
         android:layout_below="@id/calendarview"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:backgroundTint="#A4C3EA"
         android:text="출석 체크"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
