@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/machineImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/workout"
+        android:contentDescription="운동기구 이미지" />
+
+    <TextView
+        android:id="@+id/machineNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가슴 프레스"
+        android:textSize="16sp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/machineCrowdTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="혼잡도: 낮음"
+        android:textSize="14sp"
+        android:gravity="center" />
+</LinearLayout>
