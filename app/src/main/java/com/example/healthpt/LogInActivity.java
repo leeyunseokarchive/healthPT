@@ -26,8 +26,6 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
-
 public class LogInActivity extends AppCompatActivity {
 
     private EditText id;
@@ -47,6 +45,4 @@ public class LogInActivity extends AppCompatActivity {
         id = findViewById(R.id.login_id);
 
     }
-
-
 }
