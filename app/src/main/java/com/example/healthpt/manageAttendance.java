@@ -1,6 +1,7 @@
 package com.example.healthpt;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +27,21 @@ public class manageAttendance {
     public manageAttendance(Context context) {
         this.context = context;
         this.db = FirebaseFirestore.getInstance();
-        this.user = FirebaseAuth.getInstance().getCurrentUser();
-        this.userId = "testing";
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        this.user = auth.getCurrentUser();
+        if (user == null) {
+            auth.signInAnonymously()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d("Firebase", "익명 로그인 성공!");
+                        } else {
+                            Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
+        this.userId = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "testing";
     }
 
     public void markTodayAttendance() {

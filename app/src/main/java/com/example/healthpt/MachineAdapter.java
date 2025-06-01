@@ -1,5 +1,6 @@
 package com.example.healthpt;
 
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,14 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MachineV
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
-                    listener.onItemClick(machine);
+                    new AlertDialog.Builder(itemView.getContext())
+                            .setTitle("확인")
+                            .setMessage(machine.getName() + "을(를) 사용하고 계시는 분께\n메이트 신청을 보내시겠습니까?")
+                            .setPositiveButton("예", (dialog, which) -> {
+                                //listener.onItemClick(machine);  // 예를 누르면 원래 하려던 작업 실행
+                            })
+                            .setNegativeButton("아니오", null)  // 아무 일도 안 함
+                            .show();
                 }
             });
         }

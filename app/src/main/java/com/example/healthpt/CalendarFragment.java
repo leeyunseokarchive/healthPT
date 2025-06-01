@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -80,14 +81,20 @@ public class CalendarFragment extends Fragment {
         });
 
         //출석 체크는 아직 서버 연동 못해놔서 하는대로 올리겠슴미다 by 장윤상
+        //임시로 파이어 베이스 로그인해서 연동하도록 만들어 놨습니다 by 장윤상
         checkInButton.setOnClickListener(view1 -> {//출석 체크 버튼 누를 경우
             Calendar calendar = Calendar.getInstance();
             CalendarDay today = CalendarDay.from(//오늘 날짜 확인
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH) + 1, // 0-based라 +1
                     calendar.get(Calendar.DAY_OF_MONTH)
-            );
 
+
+            );
+            if (attendanceDays.contains(today)) {
+                Toast.makeText(requireContext(), "이미 출석했습니다!", Toast.LENGTH_SHORT).show();
+                return;
+            }
             // 출석일 추가
             attendanceManager.markTodayAttendance();
             attendanceDays.add(today);
