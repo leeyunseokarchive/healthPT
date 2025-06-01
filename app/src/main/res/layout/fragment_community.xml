@@ -26,19 +26,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="운동메이트 요청받기"
-        android:textSize="20dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.178" />
+        app:layout_constraintVertical_bias="0.269" />
 
     <TextView
-        android:id="@+id/exercise_recommand_text"
+        android:id="@+id/mate_recommand_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="오늘은 이런 운동 어떠세요?"
+        android:text="            운동 메이트와 함께하면 \n근력 운동시 2.5kg을 더 들수 있대요!"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

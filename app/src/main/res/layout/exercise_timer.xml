@@ -43,12 +43,13 @@
         android:id="@+id/timerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
         android:layout_marginTop="80dp"
         android:text="30초"
         android:textColor="#000000"
         android:textSize="64dp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/roundText" />
 
@@ -56,25 +57,31 @@
         android:id="@+id/statusText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
         android:layout_marginTop="80dp"
         android:text="운동 중!"
         android:textColor="#000000"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timerText" />
+        app:layout_constraintTop_toBottomOf="@id/timerText"
+        app:layout_constraintVertical_bias="0.011" />
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="112dp"
         android:backgroundTint="#5AC8FA"
         android:text="시작"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusText" />
+        app:layout_constraintTop_toBottomOf="@id/statusText"
+        app:layout_constraintVertical_bias="0.129" />
 </androidx.constraintlayout.widget.ConstraintLayout>
