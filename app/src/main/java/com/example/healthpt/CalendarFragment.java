@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -53,7 +55,15 @@ public class CalendarFragment extends Fragment {
         calendarView = view.findViewById(R.id.calendarview);
         checkInButton = view.findViewById(R.id.checkInButton);
 
-        attendanceManager = new manageAttendance(requireContext());
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser == null) {
+            Toast.makeText(requireContext(), "로그인이 필요합니다!", Toast.LENGTH_SHORT).show();
+            // 필요하면 로그인 화면으로 이동시키거나 기능 제한
+            return;
+        }
+
+        attendanceManager = new manageAttendance(requireContext(), currentUser);
         // 테스트용 출석 날짜
 
         calendarView.addDecorator(new AttendanceDecorator(attendanceDays));

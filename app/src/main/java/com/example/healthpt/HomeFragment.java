@@ -38,7 +38,6 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 public class HomeFragment extends Fragment {
 
 
-
     private TextView peopleCountText;
     private TextView totalCapacityText;
     private ImageView gymcomplexImageView;
@@ -76,9 +75,6 @@ public class HomeFragment extends Fragment {
         beaconFinder = view.findViewById(R.id.beaconFinder);
 
 
-        manageAttendance manageAttendance;
-
-
         setPeopleCount(currentCount);
         updateUIWithCount(currentCount);
 
@@ -109,7 +105,7 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
-        beaconFinder.setOnClickListener(v->{
+        beaconFinder.setOnClickListener(v -> {
             Toast.makeText(requireContext(), "비콘 찾는중", Toast.LENGTH_SHORT);
 
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
@@ -147,15 +143,13 @@ public class HomeFragment extends Fragment {
             }
 
         });*/
-        view.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
+        //view.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
 
-        manageAttendance manager = new manageAttendance(requireContext());
-        manager.getTotalAttendanceCount(count -> {
-            // count는 출석한 일 수
-            //Log.d("출석 일수", count + "일 출석했습니다.");
-            attendance.setText("연속 출석 일자: " + count + "일");
+        manageAttendance.init(requireContext(), manager ->{
+            manager.getTotalAttendanceCount(count -> {
+                attendance.setText("연속 출석 일자: " + count + "일");
+            });
         });
-
         return view;
     }
 
@@ -169,7 +163,7 @@ public class HomeFragment extends Fragment {
 
         if ((float) count / totalCapacity <= 0.3) {
             gymcomplexImageView.setImageResource(R.drawable.free);
-        } else if ((float)count / totalCapacity <= 0.6) {
+        } else if ((float) count / totalCapacity <= 0.6) {
             gymcomplexImageView.setImageResource(R.drawable.common);
         } else {
             gymcomplexImageView.setImageResource(R.drawable.complex);
